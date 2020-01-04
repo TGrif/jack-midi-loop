@@ -4,25 +4,27 @@
 #include <gtkmm.h>
 
 
-class MainWindow: public Gtk::Window {
+class MainWindow: public Gtk::Window, Looper::Looper {
 
   public:
     
-    MainWindow(const Glib::RefPtr<Gtk::Application>& app);
+    MainWindow(const Glib::RefPtr<Gtk::Application>&app);
     virtual ~MainWindow();
 
 
-  protected:
+  // protected:
+  private:
     
-    // void build_main_menu(const Glib::RefPtr<Gtk::Application>& app);
+    const Glib::ustring app_title = "Jack MIDI Loop";
+    
     void MIDI_buffer();
-
-    //Signal handlers:
+    
     void on_button_loop();
     void on_button_panic();
     void on_button_quit();
     
-    Glib::RefPtr<Gtk::TextBuffer> m_refTextBuffer;
+    
+    Glib::RefPtr<Gtk::TextBuffer>m_refTextBuffer;
     
     Gtk::Box m_VBox;
     Gtk::ScrolledWindow m_ScrolledWindow;

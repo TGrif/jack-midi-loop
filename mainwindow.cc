@@ -3,23 +3,14 @@
 #include "mainwindow.hh"
 
 
-const Glib::ustring app_title = "Jack MIDI Loop";
-
-bool islooping = false;
-
-
 MainWindow::MainWindow(const Glib::RefPtr<Gtk::Application>& app):
-m_VBox(Gtk::ORIENTATION_VERTICAL) {
+ m_VBox(Gtk::ORIENTATION_VERTICAL) {
   
   set_title(app_title);
-  set_default_size(400, 300);
+  set_default_size(400, 600);
+  set_border_width(5);
 
   add(m_VBox);
-
-  // build_main_menu(app);
-  
-  // Sets the border width of the window.
-  set_border_width(5);
   
   m_ScrolledWindow.add(m_TextView);
 
@@ -31,7 +22,6 @@ m_VBox(Gtk::ORIENTATION_VERTICAL) {
   m_VBox.pack_start(m_button, Gtk::PACK_SHRINK);
   m_button.add_pixlabel("icon/loop.xpm", "loop");
   m_button.signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::on_button_loop));
-
   
   m_VBox.pack_start(m_ButtonBox, Gtk::PACK_SHRINK);
 
@@ -52,39 +42,34 @@ m_VBox(Gtk::ORIENTATION_VERTICAL) {
   m_Button_Quit.add_pixlabel("icon/quit.xpm", "Quit");
   m_Button_Quit.signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::on_button_quit));
   
+  show_all_children();
+  
   
   MIDI_buffer();
   
-  show_all_children();
 }
 
 MainWindow::~MainWindow() {
   std::cout << "Ciao" << std::endl;
 }
 
-void MainWindow::on_button_loop() {
-  if (!islooping) {
-    std::cout << "Starting loop" << std::endl;
-    islooping = true;
-  } else {
-    std::cout << "Stopping loop" << std::endl;
-    islooping = false;
-  }
-}
-
 void MainWindow::MIDI_buffer() {
   m_refTextBuffer = Gtk::TextBuffer::create();
   m_TextView.set_buffer(m_refTextBuffer);
-  for (int i = 0; i < 5; i++) {
-    m_refTextBuffer->set_text("This is the text from TextBuffer #" + std::to_string(i) + ".\n");
-  }
+  m_refTextBuffer->set_text("This is the text from TextBuffer.\n");
+  // for (int i = 0; i < 5; i++) {
+    // m_refTextBuffer->set_text("This is the text from TextBuffer #" + std::to_string(i) + ".\n");
+  // }
+}
+
+void MainWindow::on_button_loop() {
+  Looper::loop();
 }
 
 void MainWindow::on_button_panic() {
-  std::cout << "Panic" << std::endl;
+  Looper::panic();
 }
 
 void MainWindow::on_button_quit() {
   hide();
 }
-

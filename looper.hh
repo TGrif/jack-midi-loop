@@ -14,10 +14,18 @@ class Looper {
     
     void activate();
     
-    static int staticProcess(jack_nframes_t nframes, void *arg);
+    
+  protected:
+    
+    void loop();
+    void panic();
     
     
   private:
+    
+    bool islooping = false;
+    
+    static int staticProcess(jack_nframes_t nframes, void *arg);
     
     int process(jack_nframes_t nframes);
     
