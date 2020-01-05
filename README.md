@@ -21,3 +21,7 @@ https://github.com/wxWidgets/wxWidgets/blob/master/art/
 | |_| | (_| | (__|   <  | |  | || || |_| | |  | |__| (_) | (_) | |_) |
  \___/ \__,_|\___|_|\_\ |_|  |_|___|____/___| |_____\___/ \___/| .__/ 
                                                                |_|
+
+
+Notes:
+https://github.com/jackaudio/example-clients/blob/master/midisine.c

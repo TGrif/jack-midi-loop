@@ -1,4 +1,3 @@
-#include <iostream>
 
 #include "mainwindow.hh"
 
@@ -7,11 +6,15 @@ MainWindow::MainWindow(const Glib::RefPtr<Gtk::Application>& app):
  m_VBox(Gtk::ORIENTATION_VERTICAL) {
   
   set_title(app_title);
+  set_icon_from_file("icon/midi.png");
   set_default_size(400, 600);
   set_border_width(5);
-
+  
   add(m_VBox);
   
+  m_TextView.set_editable(false);
+  m_refTextBuffer = Gtk::TextBuffer::create();
+  m_TextView.set_buffer(m_refTextBuffer);
   m_ScrolledWindow.add(m_TextView);
 
   //Only show the scrollbars when they are necessary:
@@ -44,22 +47,10 @@ MainWindow::MainWindow(const Glib::RefPtr<Gtk::Application>& app):
   
   show_all_children();
   
-  
-  MIDI_buffer();
-  
 }
 
 MainWindow::~MainWindow() {
   std::cout << "Ciao" << std::endl;
-}
-
-void MainWindow::MIDI_buffer() {
-  m_refTextBuffer = Gtk::TextBuffer::create();
-  m_TextView.set_buffer(m_refTextBuffer);
-  m_refTextBuffer->set_text("This is the text from TextBuffer.\n");
-  // for (int i = 0; i < 5; i++) {
-    // m_refTextBuffer->set_text("This is the text from TextBuffer #" + std::to_string(i) + ".\n");
-  // }
 }
 
 void MainWindow::on_button_loop() {
