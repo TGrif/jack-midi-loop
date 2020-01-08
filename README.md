@@ -7,7 +7,7 @@ g++ main.cc -o build/midi_looper `pkg-config jack sndfile gtkmm-3.0 --cflags --l
 
 
 ### based on:
-https://github.com/harryhaaren/JACK-MIDI-Examples/
+https://github.com/harryhaaren/JACK-MIDI-Examples/blob/master/recordPlayback
 
 
 ### icons from:
@@ -25,3 +25,4 @@ https://github.com/wxWidgets/wxWidgets/blob/master/art/
 
 Notes:
 https://github.com/jackaudio/example-clients/blob/master/midisine.c
+https://github.com/harryhaaren/JACK-MIDI-Examples

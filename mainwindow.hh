@@ -2,7 +2,8 @@
 #define MAIN_WINDOW_H
 
 
-class MainWindow: public Gtk::Window, Looper {
+class MainWindow: public Gtk::Window, Looper
+{
 
   public:
     
@@ -14,18 +15,22 @@ class MainWindow: public Gtk::Window, Looper {
     
     const Glib::ustring app_title = "Jack MIDI Loop";
     
-    void on_button_loop();
-    void on_button_panic();
-    void on_button_quit();
+    Glib::RefPtr<Gtk::CssProvider> css_provider = Gtk::CssProvider::create();
     
     Gtk::Box m_VBox;
     Gtk::ScrolledWindow m_ScrolledWindow;
     Gtk::TextView m_TextView;
-    Gtk::Button m_button;
+    Gtk::Button* m_button = new Gtk::Button();
     Gtk::ButtonBox m_ButtonBox;
     Gtk::Button m_button_Panic;
     Gtk::Button m_Button_Quit;
-    Gtk::ProgressBar m_ProgressBar;
+    // Gtk::ProgressBar m_ProgressBar;
+    
+    void init_clock();
+    
+    void on_button_loop();
+    void on_button_panic();
+    void on_button_quit();
     
 };
 
