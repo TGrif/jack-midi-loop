@@ -1,17 +1,19 @@
-
 ## Jack MIDI Looper
 
+### WIP:
+Essentially a MIDI logger for now...
 
-### compile:
+
+### Compile:
 g++ main.cc -o build/midi_looper `pkg-config jack sndfile gtkmm-3.0 --cflags --libs`
 
 
-### based on:
-https://github.com/harryhaaren/JACK-MIDI-Examples/blob/master/recordPlayback
+### Thanks to:
+https://github.com/harryhaaren/
 
+### Icon from:
+https://github.com/wxWidgets/
 
-### icons from:
-https://github.com/wxWidgets/wxWidgets/blob/master/art/
 
 
 
@@ -21,8 +23,3 @@ https://github.com/wxWidgets/wxWidgets/blob/master/art/
 | |_| | (_| | (__|   <  | |  | || || |_| | |  | |__| (_) | (_) | |_) |
  \___/ \__,_|\___|_|\_\ |_|  |_|___|____/___| |_____\___/ \___/| .__/ 
                                                                |_|
-
-
-Notes:
-https://github.com/jackaudio/example-clients/blob/master/midisine.c
-https://github.com/harryhaaren/JACK-MIDI-Examples

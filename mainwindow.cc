@@ -1,6 +1,5 @@
 #include "mainwindow.hh"
 
-
 MainWindow::MainWindow(const Glib::RefPtr<Gtk::Application>& app):
   m_VBox(Gtk::ORIENTATION_VERTICAL)
 {

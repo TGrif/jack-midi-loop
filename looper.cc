@@ -1,6 +1,5 @@
 #include "looper.hh"
 
-
 Looper::Looper()
 {
   
@@ -21,7 +20,6 @@ Looper::Looper()
   
 }
 
-
 void Looper::activate()
 {
   if (jack_activate(client) != 0) {
@@ -32,8 +30,6 @@ void Looper::activate()
 
 void Looper::jack_shutdown(void *arg)
 {
-  // jack_deactivate(Looper::client);
-  // jack_client_close(client);
   std::cout << "Jack exit." << std::endl;
   exit(1);
 }
@@ -65,24 +61,16 @@ int Looper::process(jack_nframes_t nframes)
     for (int i = 0; i < event_count; i++) {
       jack_midi_event_get(&in_event, port_buffer, i);
       
-      // Using "cout" in the JACK process() callback is NOT realtime, this is
-      // used here for simplicity.
       std::cout << "Frame " << position.frame << "  Event: " << i << " SubFrame#: " << in_event.time << " \tMessage:\t"
                 << (long)in_event.buffer[0] << "\t" << (long)in_event.buffer[1]
-                << "\t" << (long)in_event.buffer[2] << std::endl;
+                << "\t" << (long)in_event.buffer[2] << std::endl;  // NOT realtime...
                 
       msg = std::to_string((long)in_event.buffer[0]) + "\t" + std::to_string((long)in_event.buffer[1]) + "\t" + std::to_string((long)in_event.buffer[2]) + "\n";
       
       iter = m_refTextBuffer->get_iter_at_offset(m_refTextBuffer->get_char_count());
       m_refTextBuffer->insert(iter, msg);
-      
-      // eventVector.push_back( MidiEvent( position.frame + (long)in_event.time, (unsigned char*)&in_event.buffer ) );
-      
-      // std::cout << islooping << std::endl;
     }
   }
-  
-  // std::cout << event_trigger_count << std::endl;
   
   if (event_trigger_count) {
     jack_midi_event_get(&in_trigger_event, port_trigger_buffer, 0);
@@ -95,63 +83,10 @@ int Looper::process(jack_nframes_t nframes)
   }
   
   
-  // std::cout << nframes << std::endl;
-  
-  // for( int i = 0; i < nframes; i++ )
-  // {
-  //   std::cout << i << std::endl;
-  // }
-  
   if (islooping) {
     update_progress_bar();
-    
-    // std::cout << refTime << std::endl;
-    // for (int i = 0; i < loopTime; i++) {
-    //   std::cout << i << std::endl;
-    // }
-    // std::cout << jack_get_time() % (loopEndTime - loopStartTime) << std::endl;
-    // std::cout << loopTime << std::endl;
-    // refTime++;
   }
   
-  // https://github.com/x42/jack_midi_clock/blob/master/jack_midi_clock.c
-  
-  /*
-  for( int i = 0; i < nframes; i++ )
-  {
-    if ( playbackIndex < eventVector.size() &&
-         position.frame > eventVector.at(playbackIndex).frame )
-    {
-      // print the MIDI event that's getting played back (NON-RT!!)
-      std::cout << "Playback event! Frame = " << eventVector.at(playbackIndex).frame << "  Data  "
-           << (long)eventVector.at(playbackIndex).data[0] << "\t" << (long)eventVector.at(playbackIndex).data[1]
-           << "\t" << (long)eventVector.at(playbackIndex).data[2] << std::endl;
-      
-      
-      // here we write the MIDI event into the output port's buffer
-      unsigned char* buffer = jack_midi_event_reserve(outputPortBuf, 0, 3);
-      
-      if( buffer == 0 )
-      {
-        std::cout << "Error: write MIDI failed! write buffer == 0" << std::endl;
-      }
-      else
-      {
-        std::cout << "JC::writeMidi() " << std::endl; 
-        buffer[0] = eventVector.at(playbackIndex).data[0];
-        buffer[1] = eventVector.at(playbackIndex).data[1];
-        buffer[2] = eventVector.at(playbackIndex).data[2];
-      }
-      
-      playbackIndex++;
-    }
-  }
-  
-  if (position.frame == 0) {
-    // std::cout << "Jack rewind transport." << std::endl;
-    playbackIndex = 0;
-  }
-*/
 
   return 0;
   
@@ -159,8 +94,7 @@ int Looper::process(jack_nframes_t nframes)
 
 Looper::~Looper()
 {
-  // jack_shutdown(client);
-  // std::cout << "~Looper()" << std::endl;
+  // noop
 }
 
 void Looper::clear_buffer()
@@ -170,6 +104,7 @@ void Looper::clear_buffer()
 
 void Looper::update_progress_bar()
 {
+  milli_to_sec(jack_get_time());
   m_ProgressBar.set_text(std::to_string(jack_get_time()));
   m_ProgressBar.set_fraction(progress);
 }
@@ -200,4 +135,9 @@ void Looper::loop()
 void Looper::panic()
 {
   std::cout << "Panic" << std::endl;
+}
+
+int Looper::milli_to_sec(int milli) {  // FIXME
+  std::cout << milli / 10000 << std::endl;
+  return milli / 10000;
 }

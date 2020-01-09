@@ -1,6 +1,7 @@
 /**
- * (of-pop) Jack MIDI Looper
- * TGrif 2019 - GPL3 - direct-shoot.com
+ * Jack MIDI Looper
+ * TGrif 2019 (of-pop records) - direct-shoot.com
+ * License GPL3
  *
  */
 #include <iostream>
@@ -9,7 +10,6 @@
 
 #include "looper.cc"
 #include "mainwindow.cc"
-
 
 int main(int argc, char *argv[])
 {

@@ -1,7 +1,6 @@
 #ifndef MAIN_WINDOW_H
 #define MAIN_WINDOW_H
 
-
 class MainWindow: public Gtk::Window, Looper
 {
 
@@ -24,7 +23,6 @@ class MainWindow: public Gtk::Window, Looper
     Gtk::ButtonBox m_ButtonBox;
     Gtk::Button m_button_Panic;
     Gtk::Button m_Button_Quit;
-    // Gtk::ProgressBar m_ProgressBar;
     
     void init_clock();
     

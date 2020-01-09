@@ -4,15 +4,11 @@
 #include <vector>
 #include <string>
 
-#include <jack/jack.h>
-#include <jack/midiport.h>
-
-// #include "midievent.hh"
+#include "jackengine.hh"
 
 using std::string;
 
-
-class Looper
+class Looper: JackEngine
 {
   
   public:
@@ -24,7 +20,7 @@ class Looper
     
     string msg;
     
-    
+
   protected:
     
     Glib::RefPtr<Gtk::TextBuffer> m_refTextBuffer;
@@ -44,32 +40,20 @@ class Looper
     
   private:
     
-    int playbackIndex;
+    int milli_to_sec(int milli);
     
-    // std::vector<MidiEvent> eventVector;
+    int playbackIndex;
     
     int refTime;
     int loopTime;
     int loopStartTime;
     int loopEndTime;
     
-    const char* MIDI_TYPE = JACK_DEFAULT_MIDI_TYPE; // 8 bit raw midi
-    
     static int staticProcess(jack_nframes_t nframes, void *arg);
     
     int process(jack_nframes_t nframes);
     
     static void jack_shutdown(void *arg);
-    
-    jack_client_t* client;
-    jack_port_t* inputPort;
-    jack_port_t* inputTriggerPort;
-    jack_port_t* outputPort;
-  
-    jack_midi_event_t in_event;
-    jack_midi_event_t in_trigger_event;
-    jack_position_t position;
-    jack_transport_state_t transport;
   
 };
 
