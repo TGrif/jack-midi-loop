@@ -1,21 +1,21 @@
 # Jack MIDI Looper
 
-## Description
+## Description:
 A simple Jack MIDI Looper
 
 ## WIP:
 Essentially a MIDI logger for now...
 
 
-## Compile
+## Compile:
 `make`
 
-## Usage
+## Usage:
 `build/midi_looper`
 
 
-### Icon from:
+#### Icon from:
 https://github.com/wxWidgets/
 
-### Thanks to:
+#### Thanks to:
 https://github.com/harryhaaren/JACK-MIDI-Examples
